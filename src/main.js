@@ -14,7 +14,15 @@ let config = {
             fps: 60
         }
     },
-    scene: []
+    scene: [ Load, Title, Play ]
+}
+
+if ('speechSynthesis' in window) {
+    // Speech Synthesis supported 🎉
+    console.log("Your browser supports speech synthesis");
+} else {
+    // Speech Synthesis Not Supported 😣
+    alert("Sorry, your browser doesn't support text to speech!");
 }
 
 let game = new Phaser.Game(config);
