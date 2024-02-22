@@ -11,6 +11,15 @@ class Title extends Phaser.Scene {
     }
 
     create() {
+        // background
+        this.background = this.add.tileSprite(
+            0,
+            0,
+            w,
+            h,
+            'menuBackground'
+        ).setOrigin(0, 0);
+        
         // title
         this.title = this.add.text(
             w / 2,

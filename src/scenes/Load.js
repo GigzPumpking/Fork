@@ -5,6 +5,9 @@ class Load extends Phaser.Scene {
 
     preload() {
 
+        // load menu background
+        this.load.image('menuBackground', './assets/menuBackground.png');
+
         // loading bar
         // See: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/loader/
         let loadingBar = this.add.graphics();
