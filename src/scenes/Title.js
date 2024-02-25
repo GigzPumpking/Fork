@@ -36,13 +36,13 @@ class Title extends Phaser.Scene {
 
         // add keys for space and arrow keys
 
-        this.keys = this.input.keyboard.addKeys('SPACE, UP, DOWN, LEFT, RIGHT');
+        this.keys = this.input.keyboard.addKeys('SPACE, UP, DOWN, LEFT, RIGHT, C');
 
         this.keyList = Object.keys(this.keys);
 
         speechSynthesis.speak(msg);
 
-        msg.text = "Press SPACE to start";
+        msg.text = "Press SPACE to start, C for controls";
 
         speechSynthesis.speak(msg);
     }
@@ -50,9 +50,14 @@ class Title extends Phaser.Scene {
     update() {
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-            msg.text = "Space was pressed";
+            msg.text = "Starting Game...";
             speechSynthesis.speak(msg);
             this.scene.start('playScene');
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keys.C)) {
+            msg.text = "Arrow keys to move, C to read controls, P for position, SPACE to start";
+            speechSynthesis.speak(msg);
         }
 
     }

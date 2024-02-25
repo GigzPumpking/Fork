@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
     create() {
         // add keys for space and arrow keys
 
-        this.keys = this.input.keyboard.addKeys('SPACE, UP, DOWN, LEFT, RIGHT');
+        this.keys = this.input.keyboard.addKeys('SPACE, UP, DOWN, LEFT, RIGHT, C, P');
 
         this.keyList = Object.keys(this.keys);
 
@@ -20,6 +20,16 @@ class Play extends Phaser.Scene {
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
             msg.text = "Space was pressed";
+            speechSynthesis.speak(msg);
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keys.C)) {
+            msg.text = "Arrow keys to move, C to read controls, P for position, SPACE to start";
+            speechSynthesis.speak(msg);
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
+            msg.text = this.player.gridX + " " + this.player.gridY;
             speechSynthesis.speak(msg);
         }
 

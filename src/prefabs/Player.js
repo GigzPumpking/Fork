@@ -55,19 +55,19 @@ class Player extends Phaser.GameObjects.Sprite {
 	update() {
 		if (this.keyboard.JustDown(this.keys.UP)) {
 			this.moveCharacter(0, -1);
-            playerMsg.text = "Up was pressed";
+			playerMsg.text = this.gridX + " " + this.gridY;
             speechSynthesis.speak(playerMsg);
 		} else if (this.keyboard.JustDown(this.keys.DOWN)) {
             this.moveCharacter(0, 1);
-            playerMsg.text = "Down was pressed";
+			playerMsg.text = this.gridX + " " + this.gridY;
             speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.LEFT)) {
             this.moveCharacter(-1, 0);
-            playerMsg.text = "Left was pressed";
+			playerMsg.text = this.gridX + " " + this.gridY;
             speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.RIGHT)) {
             this.moveCharacter(1, 0);
-            playerMsg.text = "Right was pressed";
+			playerMsg.text = this.gridX + " " + this.gridY;
             speechSynthesis.speak(playerMsg);
         }
 	}
