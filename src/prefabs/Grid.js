@@ -8,9 +8,9 @@ class Grid extends Phaser.GameObjects.Grid {
 			height,
 			width / dimension,
 			height / dimension,
-			0xaa11aa,
+			0xFF7F7F,
 			0.1,
-			0xffffff,
+			0xFF7F7F,
 			0.5
 		);
 		this.dimension = dimension;

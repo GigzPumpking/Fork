@@ -56,19 +56,19 @@ class Player extends Phaser.GameObjects.Sprite {
 		if (this.keyboard.JustDown(this.keys.UP)) {
 			this.moveCharacter(0, -1);
 			playerMsg.text = this.gridX + " " + this.gridY;
-            speechSynthesis.speak(playerMsg);
+			if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
 		} else if (this.keyboard.JustDown(this.keys.DOWN)) {
             this.moveCharacter(0, 1);
 			playerMsg.text = this.gridX + " " + this.gridY;
-            speechSynthesis.speak(playerMsg);
+            if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.LEFT)) {
             this.moveCharacter(-1, 0);
 			playerMsg.text = this.gridX + " " + this.gridY;
-            speechSynthesis.speak(playerMsg);
+            if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.RIGHT)) {
             this.moveCharacter(1, 0);
 			playerMsg.text = this.gridX + " " + this.gridY;
-            speechSynthesis.speak(playerMsg);
+            if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         }
 	}
 }

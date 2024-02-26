@@ -7,6 +7,9 @@ class Load extends Phaser.Scene {
 
         // load menu background
         this.load.image('menuBackground', './assets/menuBackground.png');
+        
+        // load player
+        this.load.image('player', './assets/fork.png');
 
         // loading bar
         // See: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/loader/

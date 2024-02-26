@@ -10,9 +10,18 @@ class Play extends Phaser.Scene {
 
         this.keyList = Object.keys(this.keys);
 
-        this.grid = new Grid(this, w/2, h/2, w, h, 10);
+        // Create a red background
+        this.background = this.add.rectangle(0, 0, w, h, 0xBC544B).setOrigin(0, 0);
+
+        let dimensions = (w + h) / 2.2;
+
+        // Create a black background behind the grid
+        this.gridBackground = this.add.rectangle(w / 2, h / 2, dimensions, dimensions, 0x000000).setOrigin(0.5, 0.5);
+
+        this.grid = new Grid(this, w/2, h/2, dimensions, dimensions, 10);
 
         this.player = new Player(this, 5, 5, 'player');
+        this.player.setScale(0.25);
     }
 
     update() {
