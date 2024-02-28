@@ -4,12 +4,18 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
-
+        // set base path for assets
+        this.load.path = './assets/';
         // load menu background
-        this.load.image('menuBackground', './assets/menuBackground.png');
+        this.load.image('menuBackground', 'menuBackground.png');
         
         // load player
-        this.load.image('player', './assets/fork.png');
+        this.load.image('player', 'fork.png');
+        this.load.image('chef', 'chef_spritesheet.png');
+
+        // load chef animations
+        this.load.spritesheet('chef_walk', 'chef_spritesheet.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 5});
+        this.load.spritesheet('chef_idle', 'chef_spritesheet.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 0});
 
         // loading bar
         // See: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/loader/

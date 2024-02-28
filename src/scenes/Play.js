@@ -20,8 +20,7 @@ class Play extends Phaser.Scene {
 
         this.grid = new Grid(this, w/2, h/2, dimensions, dimensions, 10);
 
-        this.player = new Player(this, 5, 5, 'player');
-        this.player.setScale(0.25);
+        this.player = new Player(this, 5, 5, 'chef').setScale(3);
     }
 
     update() {

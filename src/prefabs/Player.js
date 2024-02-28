@@ -16,6 +16,32 @@ class Player extends Phaser.GameObjects.Sprite {
 		this.keys = this.scene.input.keyboard.addKeys(
 			"UP, DOWN, LEFT, RIGHT, SPACE"
 		);
+
+		// load chef animations
+		this.anims.create({
+			key: "chef_walk",
+			frames: this.anims.generateFrameNumbers("chef_walk", {
+				start: 0,
+				end: 5,
+				first: 0,
+			}),
+			frameRate: 10,
+			repeat: -1,
+		});
+
+		this.anims.create({
+			key: "chef_idle",
+			frames: this.anims.generateFrameNumbers("chef_idle", {
+				start: 0,
+				end: 0,
+				first: 0,
+			}),
+			frameRate: 10,
+			repeat: -1,
+		});
+
+		this.play("chef_idle");
+
 		scene.add.existing(this);
 
 	}
@@ -25,10 +51,14 @@ class Player extends Phaser.GameObjects.Sprite {
 			targets: this,
 			x: x,
 			y: y,
-			duration: 175,
+			duration: 175*5,
 			ease: "Power1",
+			onStart: () => {
+				this.play("chef_walk");
+			},
 			onComplete: () => {
 				this.moving = false;
+				this.play("chef_idle");
 			},
 		});
 	}
@@ -46,7 +76,6 @@ class Player extends Phaser.GameObjects.Sprite {
 			this.gridY + dY
 		);
 
-        console.log(this.gridX, this.gridY, dX, dY, newPoint);
 		this.tweenToPoint(newPoint[0], newPoint[1]);
 		this.gridY += dY;
 		this.gridX += dX;
@@ -63,10 +92,14 @@ class Player extends Phaser.GameObjects.Sprite {
             if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.LEFT)) {
             this.moveCharacter(-1, 0);
+			// flip the sprite
+			this.flipX = true;
 			playerMsg.text = this.gridX + " " + this.gridY;
             if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.RIGHT)) {
             this.moveCharacter(1, 0);
+			// flip the sprite
+			this.flipX = false;
 			playerMsg.text = this.gridX + " " + this.gridY;
             if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         }
