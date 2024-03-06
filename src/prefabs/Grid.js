@@ -32,8 +32,7 @@ class Grid extends Phaser.GameObjects.Grid {
 	}
 
 	pointInBounds(x, y) {
-        console.log(x, y);
-		return x >= 0 && x < this.dimension && y >= 0 && y < this.dimension;
+		return x >= 0 && x < this.dimension && y >= 0 && y < this.dimension - 2;
 	}
 
 }

@@ -9,6 +9,7 @@ class Player extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, texture, frame) {
 		let gridPoint = scene.grid.getPoint(x, y);
 		super(scene, gridPoint[0], gridPoint[1], texture, frame);
+		this.scene = scene;
 		this.gridX = x;
 		this.gridY = y;
 		this.moving = false;
@@ -64,6 +65,9 @@ class Player extends Phaser.GameObjects.Sprite {
 	}
 
 	moveCharacter(dX, dY) {
+		if (dX < 0) this.flipX = true;
+		else this.flipX = false;
+
 		if (this.moving) {
 			return;
 		}
@@ -79,29 +83,19 @@ class Player extends Phaser.GameObjects.Sprite {
 		this.tweenToPoint(newPoint[0], newPoint[1]);
 		this.gridY += dY;
 		this.gridX += dX;
+
+		this.scene.locationCheck();
 	}
 
 	update() {
 		if (this.keyboard.JustDown(this.keys.UP)) {
 			this.moveCharacter(0, -1);
-			playerMsg.text = this.gridX + " " + this.gridY;
-			if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
 		} else if (this.keyboard.JustDown(this.keys.DOWN)) {
             this.moveCharacter(0, 1);
-			playerMsg.text = this.gridX + " " + this.gridY;
-            if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.LEFT)) {
             this.moveCharacter(-1, 0);
-			// flip the sprite
-			this.flipX = true;
-			playerMsg.text = this.gridX + " " + this.gridY;
-            if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         } else if (this.keyboard.JustDown(this.keys.RIGHT)) {
             this.moveCharacter(1, 0);
-			// flip the sprite
-			this.flipX = false;
-			playerMsg.text = this.gridX + " " + this.gridY;
-            if (!speechSynthesis.speaking) speechSynthesis.speak(playerMsg);
         }
 	}
 }
