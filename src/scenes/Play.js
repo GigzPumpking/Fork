@@ -22,8 +22,8 @@ class Play extends Phaser.Scene {
 
         // create items array
         this.items = [];
-        // create a fork item at 8, 8
-        this.fork = new Item(this, 8, 8, 'fork').setScale(0.2);
+        // create a fork item at 6, 6
+        this.fork = new Item(this, 6, 6, 'fork').setScale(0.2);
 
         // add fork to items array
         this.items.push(this.fork);
