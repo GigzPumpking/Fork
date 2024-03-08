@@ -9,8 +9,14 @@ class Load extends Phaser.Scene {
         // load menu background
         this.load.image('menuBackground', 'menuBackground.png');
 
+        // load game background
+        this.load.image('gameBackground', 'Fork_Kitchen.png');
+
         // load items
         this.load.image('fork', 'fork.png');
+        this.load.image('shortcake', 'Fork_Shortcake.png');
+        this.load.image('strawberry', 'ForkStrawberry.png');
+        this.load.image('egg', 'ForkEgg.png');
         
         // load player
         this.load.image('chef', 'chef_spritesheet.png');

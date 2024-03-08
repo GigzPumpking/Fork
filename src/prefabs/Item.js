@@ -8,6 +8,7 @@ class Item extends Phaser.GameObjects.Sprite {
         this.depth = 1;
 
 		scene.add.existing(this);
+        scene.items.push(this);
 
         this.visible = false;
         this.visibleCheck();
