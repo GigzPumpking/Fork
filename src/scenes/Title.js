@@ -56,7 +56,7 @@ class Title extends Phaser.Scene {
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.C)) {
-            msg.text = "Arrow keys to move, C to read controls, P for position, SPACE to start";
+            msg.text = "Arrow keys to move, C to read controls, P for position, SPACE to start,\nENTER to pick up items, I for inventory";
             speechSynthesis.speak(msg);
         }
 

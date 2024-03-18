@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
     create() {
         // add keys for space and arrow keys
 
-        this.keys = this.input.keyboard.addKeys('SPACE, UP, DOWN, LEFT, RIGHT, C, P');
+        this.keys = this.input.keyboard.addKeys('SPACE, UP, DOWN, LEFT, RIGHT, C, P, ENTER, I');
 
         // Create a red background
         this.background = this.add.rectangle(0, 0, w, h, 0xBC544B).setOrigin(0, 0);
@@ -33,9 +33,26 @@ class Play extends Phaser.Scene {
         this.strawberry = new Item(this, 4, 4, 'strawberry').setScale(3);
         this.egg = new Item(this, 1, 1, 'egg').setScale(3);
 
+        // create inventory array
+        this.inventory = [];
+
         // add subtitle text object at the bottom of the screen
-        this.style = { fontFamily: 'Courier', fontSize: '24px', color: '#FFFFFF', align: 'center' };
-        this.subtitle = this.add.text(w/2, h - 50, 'Press SPACE to start', this.style).setOrigin(0.5, 0.5);
+        // subtitle text should have a white fill and a black stroke
+        this.style = {
+            fontFamily: 'Courier',
+            fontSize: '32px',
+            backgroundColor: '#000000',
+            color: '#FFFFFF',
+            stroke: '#000000',
+            strokeThickness: 4,
+            padding: {
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 10,
+            },
+        };
+        this.subtitle = this.add.text(w/2, h - 50, 'Arrow Keys to Move', this.style).setOrigin(0.5, 0.5);
 
     }
 
@@ -46,8 +63,14 @@ class Play extends Phaser.Scene {
     }
 
     locationCheck() {
-        this.subtitle.text = this.player.gridX + " " + this.player.gridY;
-        msg.text = this.player.gridX + " " + this.player.gridY;
+        this.subtitle.text = "This is an empty kitchen tile.";
+
+        this.items.forEach((item) => {
+            if (this.player.gridX == item.gridX && this.player.gridY == item.gridY) {
+                this.subtitle.text = "You found " + item.texture.key + "!";
+            }
+        });
+        msg.text = this.subtitle.text;
         speechSynthesis.speak(msg);
     }
 
@@ -56,20 +79,41 @@ class Play extends Phaser.Scene {
             this.actionCheck();
         });
 
+        if (this.keys.ENTER.isDown) {
+            this.items.forEach((item) => {
+                if (item.pickup()) {
+                    this.subtitle.text = "You picked up " + item.texture.key;
+                    msg.text = this.subtitle.text;
+                    speechSynthesis.speak(msg);
+                    this.inventory.push(item.texture.key);
+                }
+            });
+        }
+
         this.player.update();
 
-        if (Phaser.Input.Keyboard.JustDown(this.keys.SPACE)) {
-            msg.text = "Space was pressed";
-            speechSynthesis.speak(msg);
+        if (Phaser.Input.Keyboard.JustDown(this.keys.I)) {
+            if (this.inventory.length == 0) {
+                msg.text = "Inventory is empty.";
+                this.subtitle.text = "Inventory is empty.";
+                speechSynthesis.speak(msg);
+            }
+            else {
+                msg.text = "Inventory: " + this.inventory;
+                this.subtitle.text = "Inventory: " + this.inventory;
+                speechSynthesis.speak(msg);
+            }
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.C)) {
-            msg.text = "Arrow keys to move, C to read controls, P for position, SPACE to start";
+            msg.text = "Arrow keys to move, C to read controls, P for position,\nENTER to pick up items, I for inventory";
+            this.subtitle.text = "Arrow keys to move, C to read controls, P for position,\nENTER to pick up items, I for inventory";
             speechSynthesis.speak(msg);
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.P)) {
             msg.text = this.player.gridX + " " + this.player.gridY;
+            this.subtitle.text = this.player.gridX + " " + this.player.gridY;
             speechSynthesis.speak(msg);
         }
 

@@ -5,7 +5,8 @@ class Item extends Phaser.GameObjects.Sprite {
 		this.gridX = x;
 		this.gridY = y;
 
-        this.depth = 1;
+        this.depth = 3;
+        this.pickedUp = false;
 
 		scene.add.existing(this);
         scene.items.push(this);
@@ -17,10 +18,21 @@ class Item extends Phaser.GameObjects.Sprite {
 	}
 
     action() {
-        if (!this.visible && this.gridX == this.scene.player.gridX && this.gridY == this.scene.player.gridY) {
+        if (!this.visible && this.gridX == this.scene.player.gridX && this.gridY == this.scene.player.gridY && !this.pickedUp) {
             this.visible = true;
             this.visibleCheck();
         }
+    }
+
+    pickup() {
+        if (this.visible && this.gridX == this.scene.player.gridX && this.gridY == this.scene.player.gridY && !this.pickedUp) {
+            this.visible = false;
+            this.visibleCheck();
+            this.pickedUp = true;
+            return true;
+        }
+
+        return false;
     }
 
     visibleCheck() {

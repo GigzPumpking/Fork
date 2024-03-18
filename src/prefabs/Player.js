@@ -1,10 +1,3 @@
-const playerMsg = new SpeechSynthesisUtterance();
-playerMsg.volume = 1; // From 0 to 1
-playerMsg.rate = 0.8; // From 0.1 to 10
-playerMsg.pitch = 0.8; // From 0 to 2
-playerMsg.text = "";
-playerMsg.lang = 'en';
-
 class Player extends Phaser.GameObjects.Sprite {
 	constructor(scene, x, y, texture, frame) {
 		let gridPoint = scene.grid.getPoint(x, y);
