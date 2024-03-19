@@ -1,9 +1,11 @@
 class Item extends Phaser.GameObjects.Sprite {
-	constructor(scene, x, y, texture, frame) {
+	constructor(scene, x, y, texture, frame, displayName) {
 		let gridPoint = scene.grid.getPoint(x, y);
-		super(scene, gridPoint[0], gridPoint[1], texture, frame);
+		super(scene, gridPoint[0], gridPoint[1], texture, frame, displayName);
 		this.gridX = x;
 		this.gridY = y;
+
+        this.displayName = displayName;
 
         this.depth = 3;
         this.pickedUp = false;

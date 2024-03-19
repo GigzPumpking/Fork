@@ -28,10 +28,13 @@ class Play extends Phaser.Scene {
 
         // create items array
         this.items = [];
-        this.fork = new Item(this, 3, 3, 'fork').setScale(0.2);
-        this.shortcake = new Item(this, 2, 2, 'shortcake').setScale(3);
-        this.strawberry = new Item(this, 4, 4, 'strawberry').setScale(3);
-        this.egg = new Item(this, 1, 1, 'egg').setScale(3);
+        this.fork = new Item(this, 3, 3, 'fork', 0, 'fork').setScale(0.2);
+        this.shortcake = new Item(this, 2, 2, 'shortcake', 0, 'shortcake').setScale(3);
+        this.strawberry = new Item(this, 4, 0, 'strawberry', 0, 'strawberries').setScale(3);
+        this.egg = new Item(this, 1, 1, 'egg', 0, 'eggs').setScale(3);
+        this.oil = new Item(this, 6, 6, 'oil', 0, 'oil').setScale(3);
+        this.sugar = new Item(this, 5, 5, 'sugar', 0, 'sugar').setScale(3);
+        this.whipped_cream = new Item(this, 7, 7, 'whipped_cream', 0, 'whipped cream').setScale(3);
 
         // create inventory array
         this.inventory = [];
@@ -66,8 +69,14 @@ class Play extends Phaser.Scene {
         this.subtitle.text = "This is an empty kitchen tile.";
 
         this.items.forEach((item) => {
-            if (this.player.gridX == item.gridX && this.player.gridY == item.gridY) {
-                this.subtitle.text = "You found " + item.texture.key + "!";
+
+            if (this.player.gridX == item.gridX && this.player.gridY == item.gridY && !item.pickedUp) {
+                if (item.displayName == 'strawberries') {
+                    this.subtitle.text = "You found the sink. Strawberries found in sink!";
+                }
+                else {
+                    this.subtitle.text = "You found the " + item.displayName + "!";
+                }
             }
         });
         msg.text = this.subtitle.text;
@@ -82,10 +91,10 @@ class Play extends Phaser.Scene {
         if (this.keys.ENTER.isDown) {
             this.items.forEach((item) => {
                 if (item.pickup()) {
-                    this.subtitle.text = "You picked up " + item.texture.key;
+                    this.subtitle.text = "You picked up the " + item.displayName + "!";
                     msg.text = this.subtitle.text;
                     speechSynthesis.speak(msg);
-                    this.inventory.push(item.texture.key);
+                    this.inventory.push(item.displayName);
                 }
             });
         }
